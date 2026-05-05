@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Progress } from '@/components/ui/progress';
-import { Search, Shield, AlertTriangle, Eye, Activity, Database, Download } from 'lucide-react';
+import { Shield, AlertTriangle, Activity, Database, Download } from 'lucide-react';
 import VulnerabilityFeed from '@/components/VulnerabilityFeed';
 import ScriptAnalyzer from '@/components/ScriptAnalyzer';
 import AddressTracker from '@/components/AddressTracker';
@@ -18,20 +18,9 @@ import DashboardStats from '@/components/DashboardStats';
 
 const Index = () => {
   const [isScanning, setIsScanning] = useState(true);
-  const [scanProgress, setScanProgress] = useState(0);
-  const [currentBlock, setCurrentBlock] = useState(870000);
+  const [scanProgress] = useState(100);
+  const [currentBlock] = useState(870000);
 
-  useEffect(() => {
-    // Simulate real-time scanning progress
-    const interval = setInterval(() => {
-      setScanProgress(prev => (prev + 1) % 100);
-      if (Math.random() > 0.8) {
-        setCurrentBlock(prev => prev + 1);
-      }
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
@@ -107,36 +96,10 @@ const Index = () => {
               <div className="space-y-6">
                 <Card className="bg-slate-800/50 border-slate-700">
                   <CardHeader>
-                    <CardTitle className="text-white flex items-center">
-                      <Eye className="mr-2 h-5 w-5" />
-                      Recent Alerts
-                    </CardTitle>
+                    <CardTitle className="text-white">Recent Alerts</CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
-                      <div className="flex items-center justify-between">
-                        <Badge variant="destructive" className="text-xs">CRITICAL</Badge>
-                        <span className="text-xs text-slate-400">2m ago</span>
-                      </div>
-                      <p className="text-sm text-white mt-1">R-value reuse detected</p>
-                      <p className="text-xs text-slate-400">TX: bc1q...5x7a</p>
-                    </div>
-                    <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg">
-                      <div className="flex items-center justify-between">
-                        <Badge variant="secondary" className="text-xs bg-amber-500">HIGH</Badge>
-                        <span className="text-xs text-slate-400">5m ago</span>
-                      </div>
-                      <p className="text-sm text-white mt-1">Address reuse pattern</p>
-                      <p className="text-xs text-slate-400">Address: 1A1z...8Qx</p>
-                    </div>
-                    <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-                      <div className="flex items-center justify-between">
-                        <Badge variant="secondary" className="text-xs bg-blue-500">MEDIUM</Badge>
-                        <span className="text-xs text-slate-400">8m ago</span>
-                      </div>
-                      <p className="text-sm text-white mt-1">Dust attack detected</p>
-                      <p className="text-xs text-slate-400">546 sat outputs</p>
-                    </div>
+                  <CardContent>
+                    <p className="text-sm text-slate-300">Recent Alerts are sourced directly from the Live Vulnerability Feed on the left.</p>
                   </CardContent>
                 </Card>
 
